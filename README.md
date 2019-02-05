@@ -12,3 +12,5 @@ cp .env.example .env
 cd ../docker
 docker-compose exec php-apache php artisan key:generate
 ```
+
+http://localhost:8080/
