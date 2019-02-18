@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\MyWork as FormRequest;
 use App\Http\Resources\MyWork as Resource;
 use App\Models\Entry;
 use App\Models\Work;
@@ -24,10 +25,10 @@ class MyWorkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param FormRequest\Store $request
+     * @return Resource
      */
-    public function store(Request $request)
+    public function store(FormRequest\Store $request)
     {
         $id = auth()->user()->id;
         $work = new Work();
@@ -56,7 +57,7 @@ class MyWorkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Work $work)
+    public function update(FormRequest\Update $request, Work $work)
     {
         $work->fill($request->json()->all());
         $work->save();
