@@ -28,6 +28,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('auth/me', 'AuthController@me');
         Route::get('works', 'WorkController@index');
         Route::get('works/{work}', 'WorkController@show');
-        Route::post('myworks', 'WorkController@store');
+        Route::get('myworks', 'MyWorkController@index');
+        Route::post('myworks', 'MyWorkController@store');
+        Route::get('myworks/{work}', 'MyWorkController@show');
+        Route::put('myworks/{work}', 'MyWorkController@update');
+        Route::post('myworks/{work}/entries', 'MyWorkController@enter');
     });
 });

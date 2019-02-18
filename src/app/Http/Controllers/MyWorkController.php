@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Resources\Work as Resource;
-
+use App\Http\Resources\MyWork as Resource;
+use App\Models\Entry;
 use App\Models\Work;
 use Illuminate\Http\Request;
 
-class WorkController extends Controller
+class MyWorkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,11 @@ class WorkController extends Controller
      */
     public function index()
     {
+        $id = auth()->user()->id;
         return Resource::collection(
-            Work::All()
+            Work::where('owner_id', $id)->get()
         );
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -29,7 +29,12 @@ class WorkController extends Controller
      */
     public function store(Request $request)
     {
-
+        $id = auth()->user()->id;
+        $work = new Work();
+        $work->fill($request->json()->all());
+        $work->owner_id = $id;
+        $work->save();
+        return new Resource($work);
     }
 
     /**
@@ -43,6 +48,7 @@ class WorkController extends Controller
         return new Resource($work);
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -50,9 +56,11 @@ class WorkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Work $work)
     {
-        //
+        $work->fill($request->json()->all());
+        $work->save();
+        return new Resource($work);
     }
 
     /**
@@ -67,7 +75,13 @@ class WorkController extends Controller
     }
 
 
-    public function test($id) {
-        return $id;
+    public function enter(Request $request, Work $work)
+    {
+        $id = auth()->user()->id;
+        $entry = new Entry();
+        $entry->user_id = $id;
+        $entry->work_id = $work->id;
+        $entry->save();
+        return;
     }
 }
