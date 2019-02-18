@@ -13,4 +13,14 @@ class Work extends Model
         'entry_end_at',
         'owner_id',
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo('\App\Models\User', 'owner_id');
+    }
+
+    public function entries()
+    {
+        return $this->hasMany('App\Models\Entry');
+    }
 }
