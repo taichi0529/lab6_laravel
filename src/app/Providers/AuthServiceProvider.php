@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Work;
+use App\Policies\Mywork;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        Work::class => Mywork::class,
     ];
 
     /**
@@ -25,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('update-mywork', function ($user, $work) {
+            return $user->id == $work->owner_id;
+        });
     }
 }

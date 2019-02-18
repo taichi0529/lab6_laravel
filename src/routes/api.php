@@ -31,7 +31,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('myworks', 'MyWorkController@index');
         Route::post('myworks', 'MyWorkController@store');
         Route::get('myworks/{work}', 'MyWorkController@show');
-        Route::put('myworks/{work}', 'MyWorkController@update');
+//        Route::put('myworks/{work}', 'MyWorkController@update');
+//        Route::put('myworks/{work}', 'MyWorkController@update')->middleware('can:update-mywork,work');
+        Route::put('myworks/{work}', 'MyWorkController@update')->middleware('can:update,work');
         Route::post('myworks/{work}/entries', 'MyWorkController@enter');
     });
 });
