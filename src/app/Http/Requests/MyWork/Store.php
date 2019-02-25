@@ -26,7 +26,7 @@ class Store extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'max:256',
+            'title' => 'required|max:256',
             'reward' => 'required|integer',
             'description' => 'required|max:256',
             'entry_end_at' => 'date',
