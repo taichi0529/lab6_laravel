@@ -6,6 +6,7 @@ use App\Http\Resources\MyWork as Resource;
 use App\Models\Entry;
 use App\Models\Work;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MyWorkController extends Controller
 {
@@ -17,9 +18,14 @@ class MyWorkController extends Controller
     public function index()
     {
         $id = auth()->user()->id;
-        return Resource::collection(
-            Work::where('owner_id', $id)->get()
+
+        DB::enableQueryLog();
+        $result = Resource::collection(
+            Work::where('owner_id', $id)->with(['owner','entries','entries.user'])->get()
         );
+        $json = $result->toJson();
+        dd(DB::getQueryLog());
+        return $json;
     }
 
     /**
