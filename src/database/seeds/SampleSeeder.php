@@ -28,6 +28,8 @@ class SampleSeeder extends Seeder
             $this->createWork($user);
             $this->createWork($user);
             $this->createWork($user);
+            $this->createWork($user);
+            $this->createWork($user);
         }
 
         foreach ($this->works as $work) {
