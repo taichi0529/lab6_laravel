@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Resources\Work as Resource;
 
+use App\Models\Entry;
 use App\Models\Work;
 use Illuminate\Http\Request;
 
@@ -70,4 +71,16 @@ class WorkController extends Controller
     public function test($id) {
         return $id;
     }
+
+
+    public function enter(Request $request, Work $work)
+    {
+        $uid = auth()->user()->id;
+        $entry = new Entry();
+        $entry->user_id = $uid;
+        $entry->work_id = $work->id;
+        $entry->save();
+        return;
+    }
+
 }
