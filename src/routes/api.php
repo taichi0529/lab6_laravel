@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 
 
 
-
 Route::group(['prefix' => 'v1'], function () {
     Route::get('test/{id}', 'WorkController@test')->middleware('test');
 
@@ -28,12 +27,16 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('auth/me', 'AuthController@me');
         Route::get('works', 'WorkController@index');
         Route::get('works/{work}', 'WorkController@show');
+
+        Route::post('works/{work}/entries', 'WorkController@enter');
+
         Route::get('myworks', 'MyWorkController@index');
         Route::post('myworks', 'MyWorkController@store');
         Route::get('myworks/{work}', 'MyWorkController@show');
-//        Route::put('myworks/{work}', 'MyWorkController@update');
-//        Route::put('myworks/{work}', 'MyWorkController@update')->middleware('can:update-mywork,work');
-        Route::put('myworks/{work}', 'MyWorkController@update')->middleware('can:update,work');
-        Route::post('myworks/{work}/entries', 'MyWorkController@enter');
+
+//        Route::put('myworks/{work}', 'MyWorkController@update')
+//            ->middleware('can:update-mywork,work');
+        Route::put('myworks/{work}', 'MyWorkController@update')
+            ->middleware('can:update,work');
     });
 });

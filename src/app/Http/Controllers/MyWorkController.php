@@ -78,13 +78,4 @@ class MyWorkController extends Controller
     }
 
 
-    public function enter(Request $request, Work $work)
-    {
-        $id = auth()->user()->id;
-        $entry = new Entry();
-        $entry->user_id = $id;
-        $entry->work_id = $work->id;
-        $entry->save();
-        return;
-    }
 }
