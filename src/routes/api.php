@@ -38,5 +38,8 @@ Route::group(['prefix' => 'v1'], function () {
 //            ->middleware('can:update-mywork,work');
         Route::put('myworks/{work}', 'MyWorkController@update')
             ->middleware('can:update,work');
+
+        // upload
+        Route::post('upload', 'UploadController@store');
     });
 });
