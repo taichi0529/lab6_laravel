@@ -5,6 +5,9 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+
+use App\Http\Requests\Upload\Store;
+
 class ExampleTest extends TestCase
 {
     /**
@@ -14,6 +17,8 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+        $request = new Store();
+        $this->assertTrue($request->authorize());
+//        $this->assertFalse($request->authorize());
     }
 }
